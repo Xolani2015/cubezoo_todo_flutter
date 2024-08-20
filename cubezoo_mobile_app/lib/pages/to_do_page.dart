@@ -51,10 +51,6 @@ class _HomePageState extends State<HomePage> {
               return titleLower.contains(searchLower);
             }).toList();
 
-            if (toDos.isEmpty) {
-              return const Center(child: Text('No ToDos match your search.'));
-            }
-
             return Padding(
               padding: EdgeInsets.all(mediaSize * 0.02),
               child: Column(
@@ -195,22 +191,20 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       Container(
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255,
-                                              238,
-                                              129,
-                                              129), // Black background for trash button
+                                        decoration: const BoxDecoration(
+                                          color: Color.fromARGB(
+                                              255, 238, 129, 129),
                                           shape: BoxShape.circle,
                                         ),
                                         child: IconButton(
-                                          icon: Icon(Icons.delete,
-                                              color: Colors
-                                                  .white), // White trash icon
+                                          icon: const Icon(Icons.delete,
+                                              color: Colors.white),
                                           onPressed: () {
-                                            context
-                                                .read<ToDoBloc>()
-                                                .add(DeleteToDo(toDo.id));
+                                            if (toDos.length > 1) {
+                                              context
+                                                  .read<ToDoBloc>()
+                                                  .add(DeleteToDo(toDo.id));
+                                            }
                                           },
                                         ),
                                       ),

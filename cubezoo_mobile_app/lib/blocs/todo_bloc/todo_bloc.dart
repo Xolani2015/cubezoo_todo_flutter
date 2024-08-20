@@ -5,23 +5,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
   final FirestoreService _firestoreService;
-  String userEmail; // Change to mutable
+  String userEmail;
 
   ToDoBloc(this._firestoreService, this.userEmail) : super(ToDoInitial()) {
     on<FetchToDos>(_onFetchToDos);
     on<AddToDo>(_onAddToDo);
     on<UpdateToDo>(_onUpdateToDo);
     on<DeleteToDo>(_onDeleteToDo);
-    // Optionally handle email update
+
     on<UpdateUserEmail>(_onUpdateUserEmail);
   }
 
   void _onFetchToDos(FetchToDos event, Emitter<ToDoState> emit) async {
     try {
       emit(ToDoLoading());
-      final toDos = await _firestoreService
-          .getToDos(userEmail)
-          .first; // Pass userEmail to filter
+      final toDos = await _firestoreService.getToDos(userEmail).first;
       emit(ToDoLoaded(toDos));
     } catch (e) {
       emit(const ToDoError('Failed to fetch ToDos'));
@@ -30,9 +28,8 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
 
   void _onAddToDo(AddToDo event, Emitter<ToDoState> emit) async {
     try {
-      await _firestoreService.createToDo(
-          event.toDo, userEmail); // Pass userEmail to associate ToDo
-      add(FetchToDos()); // Re-fetch ToDos after adding
+      await _firestoreService.createToDo(event.toDo, userEmail);
+      add(FetchToDos());
     } catch (e) {
       emit(const ToDoError('Failed to add ToDo'));
     }
