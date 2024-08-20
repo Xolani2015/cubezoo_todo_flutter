@@ -1,8 +1,8 @@
 // auth_bloc.dart
 
 import 'package:bloc/bloc.dart';
-import 'package:cubezoo_mobile_app/authentication_bloc/authentication_event.dart';
-import 'package:cubezoo_mobile_app/authentication_bloc/authentication_state.dart';
+import 'package:cubezoo_mobile_app/blocs/authentication_bloc/authentication_event.dart';
+import 'package:cubezoo_mobile_app/blocs/authentication_bloc/authentication_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthState> {
