@@ -1,66 +1,31 @@
+import 'package:cubezoo_mobile_app/authentication_bloc/authentication_bloc.dart';
+import 'package:cubezoo_mobile_app/authentication_bloc/authentication_state.dart';
+import 'package:cubezoo_mobile_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Page'),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {},
-            ),
-          ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthenticationBloc()),
+      ],
+      child: MaterialApp(
+        title: 'CubeZoo App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-      ),
-      body: Center(
-        child: Text(
-          'Welcome to the Home Page!',
-          style: TextStyle(fontSize: 24),
+        home: BlocBuilder<AuthenticationBloc, AuthState>(
+          builder: (context, state) {
+            return LoginPage();
+          },
         ),
       ),
     );
