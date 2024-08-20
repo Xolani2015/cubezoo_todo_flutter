@@ -101,6 +101,12 @@ class _HomePageState extends State<HomePage> {
                 final title = titleController.text;
                 final description = descriptionController.text;
                 if (title.isNotEmpty && description.isNotEmpty) {
+                  context.read<ToDoBloc>().add(AddToDo(ToDo(
+                        id: '',
+                        title: title,
+                        description: description,
+                        createdAt: DateTime.now(),
+                      )));
                   Navigator.of(context).pop();
                 }
               },
