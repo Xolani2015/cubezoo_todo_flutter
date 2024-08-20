@@ -117,4 +117,55 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
+  void _showEditDialog(BuildContext context, ToDo toDo) {
+    final titleController = TextEditingController(text: toDo.title);
+    final descriptionController = TextEditingController(text: toDo.description);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Edit ToDo'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(labelText: 'Title'),
+              ),
+              TextField(
+                controller: descriptionController,
+                decoration: InputDecoration(labelText: 'Description'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                final title = titleController.text;
+                final description = descriptionController.text;
+                if (title.isNotEmpty && description.isNotEmpty) {
+                  context.read<ToDoBloc>().add(UpdateToDo(ToDo(
+                        id: toDo.id,
+                        title: title,
+                        description: description,
+                        createdAt: toDo.createdAt,
+                      )));
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text('Update'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
