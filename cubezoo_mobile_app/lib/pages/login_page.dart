@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: mediaSize * 0.03, horizontal: mediaSize * 0.08),
+                    vertical: mediaSize * 0.02, horizontal: mediaSize * 0.1),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -126,21 +126,51 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                     SizedBox(height: mediaSize * 0.02),
-                    TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Enter Your Email',
-                        errorText: emailError,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black, // Background color
+                        borderRadius:
+                            BorderRadius.circular(8.0), // Rounded corners
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12.0), // Padding inside the container
+                      child: TextField(
+                        controller: emailController,
+                        style:
+                            TextStyle(color: Colors.white), // White text color
+                        decoration: InputDecoration(
+                          labelText: 'Enter Your Email',
+                          labelStyle: TextStyle(
+                              color: Colors.white), // Label text color
+                          errorText: emailError,
+                          border: InputBorder.none, // Remove default border
+                        ),
                       ),
                     ),
-                    TextField(
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        labelText: 'Password ',
-                        errorText: passwordError,
+                    SizedBox(height: 16.0), // Add some space between the fields
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black, // Background color
+                        borderRadius:
+                            BorderRadius.circular(8.0), // Rounded corners
                       ),
-                      obscureText: true,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12.0), // Padding inside the container
+                      child: TextField(
+                        controller: passwordController,
+                        style:
+                            TextStyle(color: Colors.white), // White text color
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          labelStyle: TextStyle(
+                              color: Colors.white), // Label text color
+                          errorText: passwordError,
+                          border: InputBorder.none, // Remove default border
+                        ),
+                        obscureText: true,
+                      ),
                     ),
+
                     SizedBox(height: mediaSize * 0.01),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -154,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ],
                     ),
-                    SizedBox(height: mediaSize * 0.07),
+                    SizedBox(height: mediaSize * 0.05),
                     BlocBuilder<AuthenticationBloc, AuthState>(
                       builder: (context, state) {
                         if (state is ReqLoading) {
