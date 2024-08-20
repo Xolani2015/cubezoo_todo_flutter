@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "76986740027",
+    "project_id": "cubetodoapp",
+    "storage_bucket": "cubetodoapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76986740027:android:0e696ada3a323fa5505b1e",
+        "android_client_info": {
+          "package_name": "com.example.cubezoo_mobile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB27HplczhCPZ4IyNQs5dA7N5lhcTaFqHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
