@@ -129,19 +129,32 @@ class _LoginPageState extends State<LoginPage> {
                     TextField(
                       controller: emailController,
                       decoration: InputDecoration(
-                        labelText: 'Email',
+                        labelText: 'Enter Your Email',
                         errorText: emailError,
                       ),
                     ),
                     TextField(
                       controller: passwordController,
                       decoration: InputDecoration(
-                        labelText: 'Password',
+                        labelText: 'Password ',
                         errorText: passwordError,
                       ),
                       obscureText: true,
                     ),
-                    SizedBox(height: mediaSize * 0.08),
+                    SizedBox(height: mediaSize * 0.01),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Hint Password : 123456',
+                          style: TextStyle(
+                              fontSize: mediaSize * 0.01,
+                              color: Colors.grey,
+                              fontStyle: FontStyle.italic),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: mediaSize * 0.07),
                     BlocBuilder<AuthenticationBloc, AuthState>(
                       builder: (context, state) {
                         if (state is ReqLoading) {
