@@ -1,12 +1,24 @@
+// auth_bloc.dart
+
 import 'package:bloc/bloc.dart';
 import 'package:cubezoo_mobile_app/authentication_bloc/authentication_event.dart';
 import 'package:cubezoo_mobile_app/authentication_bloc/authentication_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthState> {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   AuthenticationBloc() : super(PostAuthentication()) {
     on<reqLogin>((event, emit) async {
       emit(ReqLoading());
-      try {} catch (e) {
+      try {
+        final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: event.userEmail,
+          password: event.userPassword,
+        );
+        final userEmail = userCredential.user?.email ?? '';
+        print('Login successful');
+        emit(LoginSuccess(userEmail));
+      } catch (e) {
         print('Error during login: ${e.toString()}');
         String errorMessage;
         if (e is FirebaseAuthException) {
