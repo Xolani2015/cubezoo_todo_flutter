@@ -8,6 +8,8 @@ class ToDo {
   ToDo({
     required this.id,
     required this.title,
+    required this.description,
+    this.isCompleted = false,
     required this.createdAt,
   });
 
