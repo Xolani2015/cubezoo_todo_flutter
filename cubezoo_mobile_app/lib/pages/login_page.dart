@@ -14,8 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController =
-      TextEditingController(text: '123456@');
+  final TextEditingController passwordController = TextEditingController();
   String? emailError;
   String? passwordError;
 
@@ -102,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                          SizedBox(height: mediaSize * 0.08),
+                          SizedBox(height: mediaSize * 0.04),
                         ],
                       ),
                     ),
@@ -111,11 +110,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: mediaSize * 0.02, horizontal: mediaSize * 0.1),
+                    vertical: mediaSize * 0.02, horizontal: mediaSize * 0.06),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: mediaSize * 0.02),
+                    SizedBox(height: mediaSize * 0.01),
                     Row(
                       children: [
                         Text(
@@ -149,44 +148,29 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    // SizedBox(height: 16.0), // Add some space between the fields
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.black, // Background color
-                    //     borderRadius:
-                    //         BorderRadius.circular(8.0), // Rounded corners
-                    //   ),
-                    //   padding: EdgeInsets.symmetric(
-                    //       horizontal: 12.0), // Padding inside the container
-                    //   child: TextField(
-                    //     controller: passwordController,
-                    //     style:
-                    //         TextStyle(color: Colors.white), // White text color
-                    //     decoration: InputDecoration(
-                    //       labelText: 'Password',
-                    //       labelStyle: TextStyle(
-                    //           color: Colors.white), // Label text color
-                    //       errorText: passwordError,
-                    //       border: InputBorder.none, // Remove default border
-                    //     ),
-                    //     obscureText: true,
-                    //   ),
-                    // ),
+                    SizedBox(height: 16.0), // Add some space between the fields
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
+                      child: TextField(
+                        controller: passwordController,
+                        style:
+                            TextStyle(color: Colors.white), // White text color
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          labelStyle: TextStyle(
+                              color: Colors.white), // Label text color
+                          errorText: passwordError,
+                          border: InputBorder.none, // Remove default border
+                        ),
+                        obscureText: true,
+                      ),
+                    ),
 
-                    // SizedBox(height: mediaSize * 0.01),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     Text(
-                    //       'Hint Password : 123456',
-                    //       style: TextStyle(
-                    //           fontSize: mediaSize * 0.01,
-                    //           color: Colors.grey,
-                    //           fontStyle: FontStyle.italic),
-                    //     )
-                    //   ],
-                    // ),
-                    SizedBox(height: mediaSize * 0.02),
+                    SizedBox(height: mediaSize * 0.03),
                     BlocBuilder<AuthenticationBloc, AuthState>(
                       builder: (context, state) {
                         if (state is ReqLoading) {
@@ -196,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         }
                         return Container(
-                          width: mediaSize * 0.32, // Width of the button
+                          width: mediaSize * 0.25, // Width of the button
                           height: mediaSize * 0.07, // Height of the button
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(
@@ -246,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: const Color.fromARGB(255, 238, 129, 129)),
                       ),
                     ),
-                    SizedBox(height: mediaSize * 0.05),
+                    SizedBox(height: mediaSize * 0.01),
                   ],
                 ),
               ),
