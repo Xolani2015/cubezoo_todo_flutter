@@ -1,4 +1,5 @@
 import 'package:cubezoo_mobile_app/pages/login_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,16 +11,33 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
   bool _isLoading = false;
 
-  Future<void> registerUser(String email, String password) async {
+  Future<void> registerUser(
+      String name, String surname, String email, String password) async {
     setState(() {
       _isLoading = true;
     });
 
     try {
+      // Create user with Firebase Authentication
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Get the UID of the newly created user
+      String uid = userCredential.user?.uid ?? '';
+
+      // Add user details to Firestore
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'name': name,
+        'surname': surname,
+        'email': email,
+        'uid': uid, // Storing the UID for easy reference
+      });
+
+      // Navigate to the login page
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),
@@ -53,9 +71,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   void _register() {
-    final email = _emailController.text;
-    const password = '123456@';
-    registerUser(email, password);
+    final name = _nameController.text.trim();
+    final surname = _surnameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    registerUser(name, surname, email, password);
   }
 
   @override
@@ -69,8 +90,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
         child: Column(
           children: <Widget>[
             TextField(
+              controller: _nameController,
+              decoration: InputDecoration(labelText: 'Name'),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: _surnameController,
+              decoration: InputDecoration(labelText: 'Surname'),
+            ),
+            SizedBox(height: 10),
+            TextField(
               controller: _emailController,
               decoration: InputDecoration(labelText: 'Email'),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: 'Password'),
+              obscureText: true,
             ),
             SizedBox(height: 20),
             _isLoading
