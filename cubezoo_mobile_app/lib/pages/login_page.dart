@@ -231,12 +231,15 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: mediaSize * 0.05,
+              ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
                       color: const Color.fromARGB(255, 221, 221, 221),
-                      height: mediaSize * 0.07,
+                      height: mediaSize * 0.08,
                     ),
                   )
                 ],

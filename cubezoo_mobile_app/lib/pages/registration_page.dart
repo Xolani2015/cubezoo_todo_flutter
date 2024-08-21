@@ -263,7 +263,7 @@ class RegistrationPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: mediaSize * 0.2,
+                    height: mediaSize * 0.25,
                   ),
                   Row(
                     children: [

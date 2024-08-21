@@ -4,20 +4,17 @@ import 'package:cubezoo_mobile_app/blocs/authentication_bloc/authentication_stat
 import 'package:cubezoo_mobile_app/blocs/registration_bloc/registration_bloc.dart';
 import 'package:cubezoo_mobile_app/blocs/todo_bloc/todo_bloc.dart';
 import 'package:cubezoo_mobile_app/pages/to_do_page.dart';
+import 'package:cubezoo_mobile_app/pages/user_profile_page.dart';
 import 'package:cubezoo_mobile_app/services/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:cubezoo_mobile_app/pages/login_page.dart';
+import 'pages/login_page.dart';
+import 'pages/registration_page.dart';
 
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:cubezoo_mobile_app/pages/login_page.dart';
-import 'package:cubezoo_mobile_app/pages/registration_page.dart'; // Import the RegistrationPage
+import 'blocs/profile_bloc/profile_bloc.dart'; // Import the ProfileBloc
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,8 +39,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AuthenticationBloc()),
         BlocProvider(create: (context) => ToDoBloc(FirestoreService(), '')),
         BlocProvider(
-            create: (context) => RegistrationBloc(FirebaseAuth.instance,
-                FirebaseFirestore.instance)), // Add the RegistrationBloc
+            create: (context) => RegistrationBloc(
+                FirebaseAuth.instance, FirebaseFirestore.instance)),
+        BlocProvider(
+            create: (context) => ProfileBloc(FirebaseAuth.instance,
+                FirebaseFirestore.instance)), // Add the ProfileBloc
       ],
       child: MaterialApp(
         title: 'CubeZoo App',
@@ -63,6 +63,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/registration': (context) => RegistrationPage(),
+          '/profile': (context) =>
+              ProfilePage(), // Define the ProfilePage route
         },
       ),
     );

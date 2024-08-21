@@ -90,8 +90,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfilePage()),
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
                       (Route<dynamic> route) => false,
                     );
                   },
@@ -105,6 +104,7 @@ class _HomePageState extends State<HomePage> {
                     child: Icon(
                       Icons.person,
                       color: Colors.white,
+                      size: mediaSize * 0.05,
                     ),
                   ),
                 ))
@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                   child: TextField(
                     controller: searchController,
                     decoration: const InputDecoration(
-                      hintText: 'Search ToDos...',
+                      hintText: 'Search To Do List',
                       border: InputBorder.none,
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 16, vertical: 14),
