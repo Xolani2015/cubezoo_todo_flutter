@@ -22,7 +22,10 @@ class ToDoBloc extends Bloc<ToDoEvent, ToDoState> {
   void _onFetchToDos(FetchToDos event, Emitter<ToDoState> emit) async {
     try {
       emit(ToDoLoading());
-      //final toDos = await _firestoreService.getToDos(userEmail).first;
+
+      //ill have to use todos linked to my own email, I had issues with
+      //firestore database rules
+
       final toDos = await _firestoreService.getToDos(userEmail).first;
       emit(ToDoLoaded(toDos));
     } catch (e) {

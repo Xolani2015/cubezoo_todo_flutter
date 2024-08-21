@@ -17,11 +17,7 @@ class FirestoreService {
 
   // Get all tasks for a specific user by userEmail
   Stream<List<ToDo>> getToDos(String userEmail) {
-    return _firestore
-        .collection(_todosCollection)
-        .where('userEmail', isEqualTo: userEmail)
-        .snapshots()
-        .map((snapshot) {
+    return _firestore.collection(_todosCollection).snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         return ToDo.fromMap(doc.data(), doc.id);
       }).toList();
@@ -59,6 +55,19 @@ class FirestoreService {
     return null;
   }
 }
+
+// Get all tasks for a specific user by userEmail
+// Stream<List<ToDo>> getToDos(String userEmail) {
+//   return _firestore
+//       .collection(_todosCollection)
+//       .where('userEmail', isEqualTo: userEmail)
+//       .snapshots()
+//       .map((snapshot) {
+//     return snapshot.docs.map((doc) {
+//       return ToDo.fromMap(doc.data(), doc.id);
+//     }).toList();
+//   });
+// }
 
 class AuthenticationService {
   Future<void> updateUserProfile(String name, String email) async {

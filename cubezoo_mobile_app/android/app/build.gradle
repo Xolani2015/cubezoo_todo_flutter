@@ -24,7 +24,7 @@ android {
         applicationId = "com.example.cubezoo_mobile_app"
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
+        versionCode = 2
         versionName = flutter.versionName
     }
 

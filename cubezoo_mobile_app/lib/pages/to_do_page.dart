@@ -6,6 +6,7 @@ import 'package:cubezoo_mobile_app/blocs/todo_bloc/todo_state.dart';
 import 'package:cubezoo_mobile_app/models/todo_model.dart';
 
 import 'package:cubezoo_mobile_app/pages/login_page.dart';
+import 'package:cubezoo_mobile_app/pages/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -63,7 +64,6 @@ class _HomePageState extends State<HomePage> {
   SingleChildScrollView _todoList(
       double mediaSize, List<ToDo> toDos, BuildContext context) {
     return SingleChildScrollView(
-      // Add this
       child: Column(
         children: [
           Container(
@@ -85,6 +85,29 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                Expanded(
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfilePage()),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(right: mediaSize * 0.05),
+                    height: mediaSize * 0.1,
+                    width: mediaSize * 0.1,
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 238, 129, 129),
+                        shape: BoxShape.circle),
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                  ),
+                ))
               ],
             ),
           ),
@@ -145,6 +168,13 @@ class _HomePageState extends State<HomePage> {
                           itemCount: toDos.length,
                           itemBuilder: (context, index) {
                             final toDo = toDos[index];
+
+                            // Skip rendering if index is 0
+                            if (index == 0) {
+                              return SizedBox
+                                  .shrink(); // Returns an empty widget
+                            }
+
                             return Container(
                               margin: EdgeInsets.symmetric(
                                   vertical: mediaSize * 0.01,
