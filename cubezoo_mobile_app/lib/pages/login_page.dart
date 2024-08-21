@@ -227,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: const Color.fromARGB(255, 238, 129, 129)),
                       ),
                     ),
-                    SizedBox(height: mediaSize * 0.01),
+                    SizedBox(height: mediaSize * 0.035),
                   ],
                 ),
               ),
