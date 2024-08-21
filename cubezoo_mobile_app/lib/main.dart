@@ -31,7 +31,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AuthenticationBloc()),
         BlocProvider(
-          create: (context) => ToDoBloc(FirestoreService(), ''),
+          create: (context) =>
+              ToDoBloc(FirestoreService(), 'xr.mkhwanazi.20@gmail.com'),
         ),
       ],
       child: MaterialApp(

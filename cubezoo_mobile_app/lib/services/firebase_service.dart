@@ -59,3 +59,12 @@ class FirestoreService {
     return null;
   }
 }
+
+class AuthenticationService {
+  Future<void> updateUserProfile(String name, String email) async {
+    // Implement the code to update the user profile in your backend
+    // This could involve making an API call or updating Firebase user details
+  }
+
+  // Other methods...
+}

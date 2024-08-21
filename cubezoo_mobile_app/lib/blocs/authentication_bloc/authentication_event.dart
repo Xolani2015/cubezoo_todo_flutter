@@ -18,3 +18,13 @@ class reqLogin extends AuthenticationEvent {
 class reqLogout extends AuthenticationEvent {}
 
 class AppStarted extends AuthenticationEvent {}
+
+class UpdateProfile extends AuthenticationEvent {
+  final String name;
+  final String email;
+
+  UpdateProfile(this.name, this.email);
+
+  @override
+  List<Object> get props => [name, email];
+}
