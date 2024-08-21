@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           Container(
-                            height: mediaSize * 0.35,
+                            height: mediaSize * 0.33,
                             child: Row(
                               children: [
                                 Expanded(
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                           ),
-                          SizedBox(height: mediaSize * 0.04),
+                          SizedBox(height: mediaSize * 0.02),
                         ],
                       ),
                     ),
@@ -129,26 +129,23 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: mediaSize * 0.02),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.black, // Background color
-                        borderRadius:
-                            BorderRadius.circular(8.0), // Rounded corners
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 12.0), // Padding inside the container
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
                       child: TextField(
                         controller: emailController,
-                        style:
-                            TextStyle(color: Colors.white), // White text color
+                        style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           labelText: 'Enter Your Email',
-                          labelStyle: TextStyle(
-                              color: Colors.white), // Label text color
+                          labelStyle: TextStyle(color: Colors.white),
                           errorText: emailError,
-                          border: InputBorder.none, // Remove default border
+                          errorStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
                         ),
                       ),
                     ),
-                    SizedBox(height: 16.0), // Add some space between the fields
+                    SizedBox(height: mediaSize * 0.02),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.black,
@@ -164,12 +161,12 @@ class _LoginPageState extends State<LoginPage> {
                           labelStyle: TextStyle(
                               color: Colors.white), // Label text color
                           errorText: passwordError,
+                          errorStyle: TextStyle(color: Colors.white),
                           border: InputBorder.none, // Remove default border
                         ),
                         obscureText: true,
                       ),
                     ),
-
                     SizedBox(height: mediaSize * 0.03),
                     BlocBuilder<AuthenticationBloc, AuthState>(
                       builder: (context, state) {

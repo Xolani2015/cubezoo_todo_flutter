@@ -1,13 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cubezoo_mobile_app/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:cubezoo_mobile_app/blocs/authentication_bloc/authentication_state.dart';
+import 'package:cubezoo_mobile_app/blocs/registration_bloc/registration_bloc.dart';
 import 'package:cubezoo_mobile_app/blocs/todo_bloc/todo_bloc.dart';
 import 'package:cubezoo_mobile_app/pages/to_do_page.dart';
 import 'package:cubezoo_mobile_app/services/firebase_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:cubezoo_mobile_app/pages/login_page.dart';
+
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:cubezoo_mobile_app/pages/login_page.dart';
+import 'package:cubezoo_mobile_app/pages/registration_page.dart'; // Import the RegistrationPage
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,10 +40,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthenticationBloc()),
+        BlocProvider(create: (context) => ToDoBloc(FirestoreService(), '')),
         BlocProvider(
-          create: (context) =>
-              ToDoBloc(FirestoreService(), 'xr.mkhwanazi.20@gmail.com'),
-        ),
+            create: (context) => RegistrationBloc(FirebaseAuth.instance,
+                FirebaseFirestore.instance)), // Add the RegistrationBloc
       ],
       child: MaterialApp(
         title: 'CubeZoo App',
@@ -51,6 +61,9 @@ class MyApp extends StatelessWidget {
             }
           },
         ),
+        routes: {
+          '/registration': (context) => RegistrationPage(),
+        },
       ),
     );
   }
