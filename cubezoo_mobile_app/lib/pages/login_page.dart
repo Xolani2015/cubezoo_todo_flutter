@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: const Color.fromARGB(255, 233, 233, 233),
                       child: Column(
                         children: [
-                          Container(
+                          SizedBox(
                             height: mediaSize * 0.1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,

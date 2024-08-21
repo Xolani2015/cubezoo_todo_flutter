@@ -30,10 +30,8 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double mediaSize = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Register 2'),
-      ),
       body: BlocConsumer<RegistrationBloc, RegistrationState>(
         listener: (context, state) {
           if (state is RegistrationSuccess) {
@@ -49,39 +47,148 @@ class RegistrationPage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              children: <Widget>[
-                TextField(
-                  controller: _nameController,
-                  decoration: InputDecoration(labelText: 'Name'),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: _surnameController,
-                  decoration: InputDecoration(labelText: 'Surname'),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(labelText: 'Email'),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                ),
-                SizedBox(height: 20),
-                state is RegistrationLoading
-                    ? CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: () => _register(context),
-                        child: Text('Register'),
+          return Column(
+            children: <Widget>[
+              Container(
+                height: mediaSize * 0.1,
+                color: const Color.fromARGB(255, 221, 221, 221),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: mediaSize * 0.1,
+                            width: mediaSize * 0.1,
+                            child: Image.asset(
+                              'assets/images/lion.png', // Path to your image
+                              fit: BoxFit.cover, // Adjust as needed
+                            ),
+                          ),
+                        ],
                       ),
-              ],
-            ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: mediaSize * 0.01,
+              ),
+              Container(
+                padding: EdgeInsets.all(mediaSize * 0.01),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Register Your Account',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: mediaSize * 0.03,
+                              color: const Color.fromARGB(255, 238, 129, 129)),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: mediaSize * 0.05),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: TextField(
+                        controller: _nameController,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          labelText: 'Name',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: mediaSize * 0.02),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: TextField(
+                        controller: _surnameController,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          labelText: 'Surname',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: mediaSize * 0.02),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: TextField(
+                        controller: _emailController,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: mediaSize * 0.02),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: TextField(
+                        obscureText: true,
+                        controller: _passwordController,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          labelText: 'password',
+                          labelStyle: TextStyle(color: Colors.white),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: mediaSize * 0.04),
+                    state is RegistrationLoading
+                        ? CircularProgressIndicator()
+                        : Container(
+                            width: mediaSize * 0.3,
+                            height: mediaSize * 0.06,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 238, 129, 129),
+                              borderRadius:
+                                  BorderRadius.circular(8), // Rounded corners
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                _register(context);
+                              }, // Action to be executed on tap
+                              child: const Center(
+                                child: Text(
+                                  'Register',
+                                  style: TextStyle(
+                                    color: Colors.white, // Text color
+                                    fontSize: 16, // Text size
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       ),
