@@ -4,11 +4,11 @@ import 'package:cubezoo_mobile_app/blocs/todo_bloc/todo_bloc.dart';
 import 'package:cubezoo_mobile_app/blocs/todo_bloc/todo_event.dart';
 import 'package:cubezoo_mobile_app/blocs/todo_bloc/todo_state.dart';
 import 'package:cubezoo_mobile_app/models/todo_model.dart';
-import 'package:cubezoo_mobile_app/models/user_profile_model.dart';
+
 import 'package:cubezoo_mobile_app/pages/login_page.dart';
-import 'package:cubezoo_mobile_app/pages/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,13 +29,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _logout() {
+    _showLogoutDialog(context);
     context.read<AuthenticationBloc>().add(reqLogout());
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-      (Route<dynamic> route) => false,
-    );
   }
 
   @override
@@ -90,24 +85,6 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      _logout();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black, // Background color
-                      ),
-                      height: mediaSize * 0.06,
-                      child: Icon(
-                        Icons.login,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                )
               ],
             ),
           ),
@@ -181,7 +158,10 @@ class _HomePageState extends State<HomePage> {
                               child: ListTile(
                                 title: Text(
                                   toDo.title,
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color.fromARGB(
+                                          255, 238, 129, 129)),
                                 ),
                                 subtitle: Text(
                                   toDo.description,
@@ -256,32 +236,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: InkWell(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (context, animation,
-                                            secondaryAnimation) =>
-                                        ProfilePage(),
-                                    transitionsBuilder: (context, animation,
-                                        secondaryAnimation, child) {
-                                      const begin = Offset(1.0, 0.0);
-                                      const end = Offset.zero;
-                                      const curve = Curves.ease;
-
-                                      var tween = Tween(begin: begin, end: end)
-                                          .chain(CurveTween(curve: curve));
-
-                                      return SlideTransition(
-                                        position: animation.drive(tween),
-                                        child: child,
-                                      );
-                                    },
-                                  ),
-                                );
+                                _logout();
                               },
                               child: Center(
                                 child: Text(
-                                  'View Profile',
+                                  'Logout',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: mediaSize * 0.02,
@@ -395,7 +354,8 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.black, // Button background color
+                color: const Color.fromARGB(
+                    255, 238, 129, 129), // Button background color
                 borderRadius: BorderRadius.circular(8), // Rounded corners
               ),
               child: TextButton(
@@ -469,6 +429,60 @@ class _HomePageState extends State<HomePage> {
               ),
               child: TextButton(
                 child: Text('Cancel', style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showLogoutDialog(
+    BuildContext context,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // Less rounded dialog
+          ),
+          title: Text('Are you sure, You want to logout'),
+          actions: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextButton(
+                child: const Text('Yes', style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Fluttertoast.showToast(
+                      backgroundColor: Color.fromARGB(255, 255, 179, 0),
+                      msg: "Logout Succesful",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2,
+                      textColor: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 11);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (Route<dynamic> route) => false,
+                  );
+                },
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 238, 129, 129),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextButton(
+                child: Text('No', style: TextStyle(color: Colors.white)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
